@@ -30,7 +30,7 @@ return $languages;
 $languages['lu'] = array( 'language' => 'lu_LU', 'english_name'=> 'Luxembourgish', 'native_name' => 'Lëtzebuerg', 'iso' => array( 'lu' ) );
 global $TRP_LANGUAGE;
 if( $TRP_LANGUAGE == 'lu_LU' ){
-$GLOBALS['text_direction'] = 'rtl';
+$GLOBALS['text_direction'] = 'ltr';
     }
 return $languages;
 }
@@ -38,7 +38,7 @@ add_filter('gettext_with_context', 'trpc_luxembourgish_rtl', 10, 4);
 function trpc_luxembourgish_rtl($translated, $text, $context, $domain){
 global $TRP_LANGUAGE;
 if($text == 'ltr' && $context == "text direction" && $TRP_LANGUAGE == 'lu_LU'){
-$translated = 'rtl';
+$translated = 'ltr';
     }
 return $translated;
 }
