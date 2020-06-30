@@ -1,0 +1,54 @@
+<?php
+/**
+ * Plugin Name: TranslatePress - Custom Somali Language
+ * Plugin URI: https://translatepress.com
+ * Description: Add the Luxembourgish Language and Flag
+ * Version: 1.0
+ * Author: Cristian Antohe
+ * Author URI: https://translatepress.com
+ * License: GPL2
+ */
+/*  Copyright 2018  TranslatePress
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+add_filter( 'trp_wp_languages', 'trpc_add_custom_somali_language', 10, 2 );
+function trpc_add_custom_somali_language( $languages ){
+$lang = 'so';
+if( array_key_exists( $lang, $languages ) ){
+return $languages;
+    }
+// Somali
+$languages['so'] = array( 'language' => 'so_SO', 'english_name'=> 'Somali', 'native_name' => '˜اَف صَومالي', 'iso' => array( 'so' ) );
+global $TRP_LANGUAGE;
+if( $TRP_LANGUAGE == 'so_SO' ){
+$GLOBALS['text_direction'] = 'rtl';
+    }
+return $languages;
+}
+add_filter('gettext_with_context', 'trpc_somali_rtl', 10, 4);
+function trpc_somali_rtl($translated, $text, $context, $domain){
+global $TRP_LANGUAGE;
+if($text == 'ltr' && $context == "text direction" && $TRP_LANGUAGE == 'so_SO'){
+$translated = 'rtl';
+    }
+return $translated;
+}
+add_filter( 'trp_flags_path', 'trpc_flags_path_somali', 10, 2 );
+function trpc_flags_path_somali( $original_flags_path,  $language_code ){
+// only change the folder path for the following languages:
+$languages_with_custom_flags = array( 'so_SO' );
+if ( in_array( $language_code, $languages_with_custom_flags ) ) {
+return  plugin_dir_url( __FILE__ ) . 'flags/' ;
+    }else{
+return $original_flags_path;
+    }
+}
