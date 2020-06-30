@@ -47,7 +47,7 @@ function trpc_flags_path_luxembourgish( $original_flags_path,  $language_code ){
 // only change the folder path for the following languages:
 $languages_with_custom_flags = array( 'lu_LU' );
 if ( in_array( $language_code, $languages_with_custom_flags ) ) {
-return  plugin_dir_url( lu.png ) . 'flags/' ;
+return  plugin_dir_url( __FILE__ ) . 'flags/' ;
     }else{
 return $original_flags_path;
     }
