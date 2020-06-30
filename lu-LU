@@ -20,32 +20,32 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-add_filter( 'trp_wp_languages', 'trpc_add_custom_somali_language', 10, 2 );
-function trpc_add_custom_somali_language( $languages ){
-$lang = 'so';
+add_filter( 'trp_wp_languages', 'trpc_add_custom_luxembourgish_language', 10, 2 );
+function trpc_add_custom_luxembourgish_language( $languages ){
+$lang = 'lu';
 if( array_key_exists( $lang, $languages ) ){
 return $languages;
     }
-// Somali
-$languages['so'] = array( 'language' => 'so_SO', 'english_name'=> 'Somali', 'native_name' => '˜اَف صَومالي', 'iso' => array( 'so' ) );
+// luxembourgish
+$languages['lu'] = array( 'language' => 'lu_LU', 'english_name'=> 'Luxembourgish', 'native_name' => 'Lëtzebuerg', 'iso' => array( 'lu' ) );
 global $TRP_LANGUAGE;
-if( $TRP_LANGUAGE == 'so_SO' ){
+if( $TRP_LANGUAGE == 'lu_LU' ){
 $GLOBALS['text_direction'] = 'rtl';
     }
 return $languages;
 }
-add_filter('gettext_with_context', 'trpc_somali_rtl', 10, 4);
-function trpc_somali_rtl($translated, $text, $context, $domain){
+add_filter('gettext_with_context', 'trpc_luxembourgish_rtl', 10, 4);
+function trpc_luxembourgish_rtl($translated, $text, $context, $domain){
 global $TRP_LANGUAGE;
-if($text == 'ltr' && $context == "text direction" && $TRP_LANGUAGE == 'so_SO'){
+if($text == 'ltr' && $context == "text direction" && $TRP_LANGUAGE == 'lu_LU'){
 $translated = 'rtl';
     }
 return $translated;
 }
-add_filter( 'trp_flags_path', 'trpc_flags_path_somali', 10, 2 );
-function trpc_flags_path_somali( $original_flags_path,  $language_code ){
+add_filter( 'trp_flags_path', 'trpc_flags_path_luxembourgish', 10, 2 );
+function trpc_flags_path_luxembourgish( $original_flags_path,  $language_code ){
 // only change the folder path for the following languages:
-$languages_with_custom_flags = array( 'so_SO' );
+$languages_with_custom_flags = array( 'lu_LU' );
 if ( in_array( $language_code, $languages_with_custom_flags ) ) {
 return  plugin_dir_url( __FILE__ ) . 'flags/' ;
     }else{
